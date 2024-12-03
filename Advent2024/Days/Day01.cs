@@ -3,19 +3,18 @@
 // https://adventofcode.com/2024/day/1
 public sealed class Day01 : BaseDay
 {
-    const bool TestMode = true;
+    private const bool TestMode = true;
 
-    private readonly string Input = string.Empty;
+    private readonly string Input;
 
-    private readonly string TestInput =
-        """
-        3   4
-        4   3
-        2   5
-        1   3
-        3   9
-        3   3
-        """;
+    private const string TestInput = """
+                                     3   4
+                                     4   3
+                                     2   5
+                                     1   3
+                                     3   9
+                                     3   3
+                                     """;
 
     public Day01() => Input = TestMode ? TestInput : File.ReadAllText(InputFilePath);
 
