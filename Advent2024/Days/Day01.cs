@@ -3,7 +3,7 @@
 // https://adventofcode.com/2024/day/1
 public sealed class Day01 : BaseDay
 {
-    private const bool TestMode = true;
+    private const bool TestMode = false;
 
     private readonly string Input;
 
@@ -18,13 +18,52 @@ public sealed class Day01 : BaseDay
 
     public Day01() => Input = TestMode ? TestInput : File.ReadAllText(InputFilePath);
 
+    private static (List<int> leftNumbers, List<int> rightNumbers) ParseInput(string input)
+    {
+        IList<int> leftNumbers = [];
+        IList<int> rightNumbers = [];
+
+        foreach (var line in input.Split('\n', StringSplitOptions.RemoveEmptyEntries))
+        {
+            var numbers = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            leftNumbers.Add(int.Parse(numbers[0]));
+            rightNumbers.Add(int.Parse(numbers[1]));
+        }
+
+        return ([.. leftNumbers.Order()], [.. rightNumbers.Order()]);
+    }
+
     public override ValueTask<string> Solve_1()
     {
-        return new(string.Empty);
+        var (leftNumbers, rightNumbers) = ParseInput(Input);
+
+        var distanceTotal = 0;
+
+        foreach (var (index, left) in leftNumbers.Index())
+        {
+            if (index >= rightNumbers.Count)
+            {
+                throw new Exception("Index out of range");
+            }
+
+            var right = rightNumbers[index];
+
+            distanceTotal += Math.Abs(right - left);
+        }
+
+        return new(distanceTotal.ToString());
     }
 
     public override ValueTask<string> Solve_2()
     {
-        return new(string.Empty);
+        var (leftNumbers, rightNumbers) = ParseInput(Input);
+        var similarityScore = 0;
+        foreach (var leftNumber in leftNumbers)
+        {
+            var count = rightNumbers.Count(rightNumber => rightNumber == leftNumber);
+            similarityScore += count * leftNumber;
+        }
+
+        return new(similarityScore.ToString());
     }
 }
