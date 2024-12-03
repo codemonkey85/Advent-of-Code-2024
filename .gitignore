@@ -358,6 +358,13 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+*.DS_Store
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+FodyWeavers.xsd.vscode
+.vscode
+Pkmds.Rcl/wwwroot/css/tailwind.css
+Pkmds.Blazor/wwwroot/css/tailwind.css
+Pkmds.Maui/wwwroot/css/tailwind.css
+.idea
