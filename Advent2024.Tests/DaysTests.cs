@@ -18,7 +18,7 @@ public static class Tests
     {
         if (Activator.CreateInstance(type) is BaseDay instance)
         {
-            // Gross hack to set the input file path for the test inputs
+            // Gross hack to set the input data for the tests
             type.GetRuntimeFields()
                 .FirstOrDefault(a => string.Equals(a.Name, InputFieldName))?
                 .SetValue(instance, File.ReadAllText(Path.Combine(TestInputsDir, instance.InputFilePath).Replace(@$"\{InputsDir}\", @"\")));
