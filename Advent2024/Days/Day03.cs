@@ -8,8 +8,8 @@ public partial class Day03 : BaseDay
     private readonly string Input;
 
     private const string Part1TestInput = "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))";
-    
-    private const string Part2TestInput = "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))";
+
+    private const string Part2TestInput = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))";
 
     public Day03() => Input = File.ReadAllText(InputFilePath);
 
