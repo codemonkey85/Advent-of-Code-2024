@@ -37,7 +37,7 @@ public static class Tests
                 DayParts.Part1 => instance.Part1TestInput,
                 DayParts.Part2 => instance.Part2TestInput ?? instance.Part1TestInput,
                 _ => throw new ArgumentOutOfRangeException(nameof(part))
-            } ?? string.Empty; ;
+            } ?? string.Empty;
     }
 
     private enum DayParts
