@@ -6,22 +6,28 @@ namespace Advent2024.Tests;
 
 public static class Tests
 {
+    private const string Day03Part2TestInput = @"xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))";
+
     [TestCase(typeof(Day01), "11", "31")]
     [TestCase(typeof(Day02), "2", "4")]
-    [TestCase(typeof(Day03), "161", "")] // TODO: Need to account for different test data in part 2
+    [TestCase(typeof(Day03), "161", "48", Day03Part2TestInput)]
     [TestCase(typeof(Day04), "", "")]
-    public static async Task Test(Type type, string sol1, string sol2)
+    public static async Task Test(Type type, string sol1, string sol2, string? test2InputOverride = null)
     {
         const string InputFieldName = "input";
 
         if (Activator.CreateInstance(type) is BaseDay instance)
         {
             // Gross hack to set the input data for the tests
-            type.GetRuntimeFields()
-                .FirstOrDefault(a => string.Equals(a.Name, InputFieldName))?
-                .SetValue(instance, File.ReadAllText(ResolveTestInputPath(instance.InputFilePath)));
+            var inputField = type.GetRuntimeFields().FirstOrDefault(a => string.Equals(a.Name, InputFieldName));
+            inputField?.SetValue(instance, File.ReadAllText(ResolveTestInputPath(instance.InputFilePath)));
 
             await Assert.ThatAsync(async () => await instance.Solve_1(), Is.EqualTo(sol1));
+
+            if (test2InputOverride != null)
+            {
+                inputField?.SetValue(instance, test2InputOverride);
+            }
             await Assert.ThatAsync(async () => await instance.Solve_2(), Is.EqualTo(sol2));
         }
         else
