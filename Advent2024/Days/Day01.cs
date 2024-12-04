@@ -1,11 +1,11 @@
 ﻿namespace Advent2024.Days;
 
 // https://adventofcode.com/2024/day/1
-public class Day01 : BaseDay
+public sealed class Day01 : BaseDay
 {
     private const bool TestMode = false;
 
-    private readonly string Input;
+    private readonly string input;
 
     private const string TestInput = """
                                      3   4
@@ -16,7 +16,7 @@ public class Day01 : BaseDay
                                      3   3
                                      """;
 
-    public Day01() => Input = TestMode ? TestInput : File.ReadAllText(InputFilePath);
+    public Day01() => input = TestMode ? TestInput : File.ReadAllText(InputFilePath);
 
     private static (List<int> leftNumbers, List<int> rightNumbers) ParseInput(string input)
     {
@@ -35,7 +35,7 @@ public class Day01 : BaseDay
 
     public override ValueTask<string> Solve_1()
     {
-        var (leftNumbers, rightNumbers) = ParseInput(Input);
+        var (leftNumbers, rightNumbers) = ParseInput(input);
 
         var distanceTotal = 0;
 
@@ -43,7 +43,7 @@ public class Day01 : BaseDay
         {
             if (index >= rightNumbers.Count)
             {
-                throw new Exception("Index out of range");
+                throw new("Index out of range");
             }
 
             var right = rightNumbers[index];
@@ -56,13 +56,12 @@ public class Day01 : BaseDay
 
     public override ValueTask<string> Solve_2()
     {
-        var (leftNumbers, rightNumbers) = ParseInput(Input);
-        var similarityScore = 0;
-        foreach (var leftNumber in leftNumbers)
-        {
-            var count = rightNumbers.Count(rightNumber => rightNumber == leftNumber);
-            similarityScore += count * leftNumber;
-        }
+        var (leftNumbers, rightNumbers) = ParseInput(input);
+        var similarityScore = (
+            from leftNumber in leftNumbers
+            let count = rightNumbers.Count(rightNumber => rightNumber == leftNumber)
+            select count * leftNumber)
+            .Sum();
 
         return new(similarityScore.ToString());
     }

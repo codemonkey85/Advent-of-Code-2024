@@ -1,11 +1,11 @@
 ﻿namespace Advent2024.Days;
 
 // https://adventofcode.com/2024/day/2
-public class Day02 : BaseDay
+public sealed class Day02 : BaseDay
 {
     private const bool TestMode = false;
 
-    private readonly string Input;
+    private readonly string input;
 
     private const string TestInput = """
                                      7 6 4 2 1
@@ -16,7 +16,7 @@ public class Day02 : BaseDay
                                      1 3 6 7 9
                                      """;
 
-    public Day02() => Input = TestMode ? TestInput : File.ReadAllText(InputFilePath);
+    public Day02() => input = TestMode ? TestInput : File.ReadAllText(InputFilePath);
 
     private static List<List<int>> ParseInput(string input)
     {
@@ -24,10 +24,7 @@ public class Day02 : BaseDay
         foreach (var line in input.Split('\n', StringSplitOptions.RemoveEmptyEntries))
         {
             List<int> report = [];
-            foreach (var number in line.Split(' ', StringSplitOptions.RemoveEmptyEntries))
-            {
-                report.Add(int.Parse(number));
-            }
+            report.AddRange(line.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse));
             reportsList.Add(report);
         }
 
@@ -36,29 +33,18 @@ public class Day02 : BaseDay
 
     public override ValueTask<string> Solve_1()
     {
-        var reportsList = ParseInput(Input);
-        var numSafe = 0;
-        for (var reportIndex = 0; reportIndex < reportsList.Count; reportIndex++)
-        {
-            var report = reportsList[reportIndex];
-
-            if (IsReportSafe(report))
-            {
-                numSafe++;
-            }
-        }
+        var reportsList = ParseInput(input);
+        var numSafe = reportsList.Count(IsReportSafe);
 
         return new(numSafe.ToString());
     }
 
     public override ValueTask<string> Solve_2()
     {
-        var reportsList = ParseInput(Input);
+        var reportsList = ParseInput(input);
         var numSafe = 0;
-        for (var reportIndex = 0; reportIndex < reportsList.Count; reportIndex++)
+        foreach (var report in reportsList)
         {
-            var report = reportsList[reportIndex];
-
             if (IsReportSafe(report))
             {
                 numSafe++;
@@ -69,11 +55,13 @@ public class Day02 : BaseDay
                 {
                     List<int> dampenedReoprt = [.. report];
                     dampenedReoprt.RemoveAt(col);
-                    if (IsReportSafe(dampenedReoprt))
+                    if (!IsReportSafe(dampenedReoprt))
                     {
-                        numSafe++;
-                        break;
+                        continue;
                     }
+
+                    numSafe++;
+                    break;
                 }
             }
         }
@@ -114,11 +102,13 @@ public class Day02 : BaseDay
                 break;
             }
 
-            if (Math.Abs(num1 - num2) > 3)
+            if (Math.Abs(num1 - num2) <= 3)
             {
-                safe = false;
-                break;
+                continue;
             }
+
+            safe = false;
+            break;
         }
 
         return safe;
