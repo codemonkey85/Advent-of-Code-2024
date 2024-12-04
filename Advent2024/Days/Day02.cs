@@ -3,6 +3,15 @@
 // https://adventofcode.com/2024/day/2
 public class Day02 : MyBaseDay
 {
+    public override string? Part1TestInput { get; set; } = """
+        7 6 4 2 1
+        1 2 7 8 9
+        9 7 6 2 1
+        1 3 2 4 5
+        8 6 4 4 1
+        1 3 6 7 9
+        """;
+
     public Day02() => Input = File.ReadAllText(InputFilePath);
 
     public override ValueTask<string> Solve_1()
