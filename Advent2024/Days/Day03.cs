@@ -20,9 +20,35 @@ public sealed partial class Day03 : MyBaseDay
 
     public override ValueTask<string> Solve_2()
     {
-        return new(string.Empty);
+        var isEnabled = true; // Start with mul instructions enabled
+        var sum = 0;
+
+        // Iterate through all matches in the input
+        foreach (Match match in Part2MultiplyInstructionsRegex().Matches(Input))
+        {
+            if (match.Groups["do"].Success)
+            {
+                isEnabled = true; // Enable mul instructions
+            }
+            else if (match.Groups["dont"].Success)
+            {
+                isEnabled = false; // Disable mul instructions
+            }
+            else if (isEnabled && match.Groups["mul"].Success)
+            {
+                // Extract numbers from mul(X,Y)
+                var num1 = int.Parse(match.Groups["num1"].Value);
+                var num2 = int.Parse(match.Groups["num2"].Value);
+                sum += num1 * num2; // Multiply and add to the sum
+            }
+        }
+
+        return new(sum.ToString());
     }
 
     [GeneratedRegex(@"mul\(([0-9]{1,3}),([0-9]{1,3})\)")]
     private static partial Regex Part1MultiplyInstructionsRegex();
+
+    [GeneratedRegex(@"(?<mul>mul\((?<num1>[0-9]{1,3}),(?<num2>[0-9]{1,3})\))|(?<do>do\(\))|(?<dont>don't\(\))")]
+    private static partial Regex Part2MultiplyInstructionsRegex();
 }

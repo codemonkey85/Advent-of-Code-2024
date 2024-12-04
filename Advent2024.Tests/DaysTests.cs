@@ -6,7 +6,7 @@ public static class Tests
 {
     [TestCase(typeof(Day01), "11", "31"),
      TestCase(typeof(Day02), "2", "4"),
-     TestCase(typeof(Day03), "161", ""),
+     TestCase(typeof(Day03), "161", "48"),
      TestCase(typeof(Day04), "", "")]
     public static async Task Test(Type type, string sol1, string sol2)
     {
