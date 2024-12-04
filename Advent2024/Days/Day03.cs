@@ -17,13 +17,11 @@ public sealed partial class Day03 : BaseDay
     {
         var localInput = TestMode ? Part1TestInput : input;
 
-        var nums = Part1MultiplyInstructionsRegex()
+        var sum = Part1MultiplyInstructionsRegex()
             .Matches(localInput)
             .Select(match => match?.ToString()?[4..^1].Split(',', StringSplitOptions.RemoveEmptyEntries)
             .Select(int.Parse) ?? [])
-            .ToList();
-
-        var sum = nums.Sum(n => n.Aggregate((a, b) => a * b));
+            .Sum(n => n.Aggregate((a, b) => a * b));
 
         return new(sum.ToString());
     }
