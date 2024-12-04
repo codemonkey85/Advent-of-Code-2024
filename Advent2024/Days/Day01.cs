@@ -1,7 +1,7 @@
 ﻿namespace Advent2024.Days;
 
 // https://adventofcode.com/2024/day/1
-public sealed class Day01 : BaseDay
+public class Day01 : BaseDay
 {
     private const bool TestMode = false;
 

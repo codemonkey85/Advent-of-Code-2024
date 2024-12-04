@@ -13,10 +13,7 @@
 
 	<ItemGroup>
 		<None Include="Inputs\**" CopyToOutputDirectory="PreserveNewest" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Inputs\" />
+		<None Include="TestInputs\**" CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
 
 </Project>
