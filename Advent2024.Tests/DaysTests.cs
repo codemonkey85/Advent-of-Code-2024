@@ -1,37 +1,32 @@
-﻿using AoCHelper;
+﻿using System.Reflection;
+using Advent2024.Days;
+using AoCHelper;
 
 namespace Advent2024.Tests;
 
-public class Day01 : Days.Day01
-{
-    protected override string InputFileDirPath => "TestInputs";
-}
-
-public class Day02 : Days.Day02
-{
-    protected override string InputFileDirPath => "TestInputs";
-}
-
-public class Day03 : Days.Day03
-{
-    protected override string InputFileDirPath => "TestInputs";
-}
-
-public class Day04 : Days.Day04
-{
-    protected override string InputFileDirPath => "TestInputs";
-}
-
 public static class Tests
 {
+    private const string TestInputsDir = "TestInputs";
+    private const string InputsDir = "Inputs";
+    private const string InputFieldName = "input";
+
     [TestCase(typeof(Day01), "11", "31")]
     [TestCase(typeof(Day02), "2", "4")]
-    [TestCase(typeof(Day03), "161", "")]
+    [TestCase(typeof(Day03), "161", "")] // TODO: Need to account for different test data in part 2
     [TestCase(typeof(Day04), "", "")]
     public static async Task Test(Type type, string sol1, string sol2)
     {
         if (Activator.CreateInstance(type) is BaseDay instance)
         {
+            // Gross hack to set the input file path for the test inputs
+            if (instance is BaseProblem baseProblem)
+            {
+                var fileInput = File.ReadAllText(Path.Combine(TestInputsDir, instance.InputFilePath).Replace(@$"\{InputsDir}\", @"\"));
+
+                var inputField = type.GetRuntimeFields().Where(a => string.Equals(a.Name, InputFieldName)).FirstOrDefault();
+                inputField?.SetValue(instance, fileInput);
+            }
+
             await Assert.ThatAsync(async () => await instance.Solve_1(), Is.EqualTo(sol1));
             await Assert.ThatAsync(async () => await instance.Solve_2(), Is.EqualTo(sol2));
         }
