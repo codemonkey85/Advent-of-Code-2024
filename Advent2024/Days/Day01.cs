@@ -18,19 +18,9 @@ public sealed class Day01 : MyBaseDay
     {
         var (leftNumbers, rightNumbers) = ParseInput(Input);
 
-        var distanceTotal = 0;
-
-        foreach (var (index, left) in leftNumbers.Index())
-        {
-            if (index >= rightNumbers.Count)
-            {
-                throw new("Index out of range");
-            }
-
-            var right = rightNumbers[index];
-
-            distanceTotal += Math.Abs(right - left);
-        }
+        var distanceTotal = leftNumbers
+            .Select((left, index) => Math.Abs(left - rightNumbers[index]))
+            .Sum();
 
         return new(distanceTotal.ToString());
     }
@@ -39,10 +29,8 @@ public sealed class Day01 : MyBaseDay
     {
         var (leftNumbers, rightNumbers) = ParseInput(Input);
 
-        var similarityScore = (
-            from leftNumber in leftNumbers
-            let count = rightNumbers.Count(rightNumber => rightNumber == leftNumber)
-            select count * leftNumber)
+        var similarityScore = leftNumbers
+            .Select(leftNumber => rightNumbers.Count(rightNumber => rightNumber == leftNumber) * leftNumber)
             .Sum();
 
         return new(similarityScore.ToString());
@@ -50,8 +38,8 @@ public sealed class Day01 : MyBaseDay
 
     private static (List<int> leftNumbers, List<int> rightNumbers) ParseInput(string input)
     {
-        IList<int> leftNumbers = [];
-        IList<int> rightNumbers = [];
+        List<int> leftNumbers = [];
+        List<int> rightNumbers = [];
 
         foreach (var line in input.Split('\n', StringSplitOptions.RemoveEmptyEntries))
         {
@@ -60,6 +48,9 @@ public sealed class Day01 : MyBaseDay
             rightNumbers.Add(int.Parse(numbers[1]));
         }
 
-        return ([.. leftNumbers.Order()], [.. rightNumbers.Order()]);
+        leftNumbers.Sort();
+        rightNumbers.Sort();
+
+        return (leftNumbers, rightNumbers);
     }
 }
