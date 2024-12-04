@@ -1,6 +1,7 @@
 ﻿namespace Advent2024.Days;
 
 // https://adventofcode.com/2024/day/4
+// I can't lie, I asked ChatGPT for help on this one.
 public sealed class Day04 : MyBaseDay
 {
     public override string? Part1TestInput { get; set; } = """
