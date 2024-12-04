@@ -54,18 +54,12 @@ public sealed class Day02 : MyBaseDay
         return new(numSafe.ToString());
     }
 
-    private static List<List<int>> ParseInput(string input)
-    {
-        List<List<int>> reportsList = [];
-        foreach (var line in input.Split('\n', StringSplitOptions.RemoveEmptyEntries))
-        {
-            List<int> report = [];
-            report.AddRange(line.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse));
-            reportsList.Add(report);
-        }
-
-        return reportsList;
-    }
+    private static List<List<int>> ParseInput(string input) =>
+        input.Split('\n', StringSplitOptions.RemoveEmptyEntries)
+        .Select(line => line.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(int.Parse)
+                        .ToList())
+        .ToList();
 
     private static bool IsReportSafe(List<int> report)
     {
