@@ -4,11 +4,19 @@ namespace Advent2024.Tests;
 
 public static class Tests
 {
-    [TestCase(typeof(Day01), "11", "31"),
-     TestCase(typeof(Day02), "2", "4"),
-     TestCase(typeof(Day03), "161", "48"),
-     TestCase(typeof(Day04), "18", "9")]
-    public static async Task Test(Type type, string sol1, string sol2)
+    [TestCase(typeof(Day01), "11", "31")]
+    public static async Task Day1Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
+
+    [TestCase(typeof(Day02), "2", "4")]
+    public static async Task Day2Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
+
+    [TestCase(typeof(Day03), "161", "48")]
+    public static async Task Day3Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
+
+    [TestCase(typeof(Day04), "18", "9")]
+    public static async Task Day4Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
+
+    private static async Task TestInternal(Type type, string sol1, string sol2)
     {
         if (Activator.CreateInstance(type) is MyBaseDay instance)
         {
