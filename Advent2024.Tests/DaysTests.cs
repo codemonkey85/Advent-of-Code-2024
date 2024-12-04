@@ -6,9 +6,9 @@ namespace Advent2024.Tests;
 
 public static class Tests
 {
+    private const string InputFieldName = "input";
     private const string TestInputsDir = "TestInputs";
     private const string InputsDir = "Inputs";
-    private const string InputFieldName = "input";
 
     [TestCase(typeof(Day01), "11", "31")]
     [TestCase(typeof(Day02), "2", "4")]
@@ -19,13 +19,9 @@ public static class Tests
         if (Activator.CreateInstance(type) is BaseDay instance)
         {
             // Gross hack to set the input file path for the test inputs
-            if (instance is BaseProblem baseProblem)
-            {
-                var fileInput = File.ReadAllText(Path.Combine(TestInputsDir, instance.InputFilePath).Replace(@$"\{InputsDir}\", @"\"));
-
-                var inputField = type.GetRuntimeFields().Where(a => string.Equals(a.Name, InputFieldName)).FirstOrDefault();
-                inputField?.SetValue(instance, fileInput);
-            }
+            type.GetRuntimeFields()
+                .FirstOrDefault(a => string.Equals(a.Name, InputFieldName))?
+                .SetValue(instance, File.ReadAllText(Path.Combine(TestInputsDir, instance.InputFilePath).Replace(@$"\{InputsDir}\", @"\")));
 
             await Assert.ThatAsync(async () => await instance.Solve_1(), Is.EqualTo(sol1));
             await Assert.ThatAsync(async () => await instance.Solve_2(), Is.EqualTo(sol2));
