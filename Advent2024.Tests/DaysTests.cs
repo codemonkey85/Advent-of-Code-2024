@@ -19,13 +19,9 @@ public static class Tests
         if (Activator.CreateInstance(type) is BaseDay instance)
         {
             // Gross hack to set the input data for the tests
-            var testInputFilePath = Path.Combine(TestInputsDir, instance.InputFilePath).Replace(@$"\{InputsDir}\", @"\");
-
-            Console.WriteLine($"{nameof(testInputFilePath)}: {testInputFilePath}");
-
             type.GetRuntimeFields()
                 .FirstOrDefault(a => string.Equals(a.Name, InputFieldName))?
-                .SetValue(instance, File.ReadAllText(testInputFilePath));
+                .SetValue(instance, File.ReadAllText(Path.Combine(TestInputsDir, instance.InputFilePath).Replace(@$"\{InputsDir}\", @"\").Replace(@$"/{InputsDir}/", @"/")));
 
             await Assert.ThatAsync(async () => await instance.Solve_1(), Is.EqualTo(sol1));
             await Assert.ThatAsync(async () => await instance.Solve_2(), Is.EqualTo(sol2));
