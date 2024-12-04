@@ -111,15 +111,15 @@ public sealed class Day04 : MyBaseDay
                 return false;
             }
 
-            const string Mas = "MAS";
-            const string Sam = "SAM";
+            const string mas = "MAS";
+            const string sam = "SAM";
 
             // Check the top-left and bottom-right arms
             var topLeft = $"{grid[centerX - 1][centerY - 1]}{grid[centerX][centerY]}{grid[centerX + 1][centerY + 1]}";
             var bottomRight = $"{grid[centerX + 1][centerY - 1]}{grid[centerX][centerY]}{grid[centerX - 1][centerY + 1]}";
 
-            return (topLeft == Mas || topLeft == Sam) &&
-                   (bottomRight == Mas || bottomRight == Sam);
+            return topLeft is mas or sam &&
+                   bottomRight is mas or sam;
         }
     }
 

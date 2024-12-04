@@ -23,9 +23,9 @@ public sealed partial class Day03 : MyBaseDay
 
     public override ValueTask<string> Solve_2()
     {
-        const string Mul = "mul";
-        const string Do = "do";
-        const string Dont = "dont";
+        const string mul = "mul";
+        const string @do = "do";
+        const string dont = "dont";
 
         var isEnabled = true; // Start with mul instructions enabled
         var sum = 0;
@@ -33,15 +33,15 @@ public sealed partial class Day03 : MyBaseDay
         // Iterate through all matches in the input
         foreach (Match match in Part2MultiplyInstructionsRegex().Matches(Input))
         {
-            if (match.Groups[Do].Success)
+            if (match.Groups[@do].Success)
             {
                 isEnabled = true; // Enable mul instructions
             }
-            else if (match.Groups[Dont].Success)
+            else if (match.Groups[dont].Success)
             {
                 isEnabled = false; // Disable mul instructions
             }
-            else if (isEnabled && match.Groups[Mul].Success)
+            else if (isEnabled && match.Groups[mul].Success)
             {
                 // Extract numbers from mul(X,Y)
                 var num1 = int.Parse(match.Groups[Num1].Value);
