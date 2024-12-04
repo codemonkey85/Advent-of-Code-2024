@@ -69,14 +69,13 @@ public sealed class Day02 : MyBaseDay
 
     private static bool IsReportSafe(List<int> report)
     {
-        var safe = true;
         var increasing = false;
         var decreasing = false;
 
         for (var col = 0; col < report.Count - 1; col++)
         {
             var num1 = report[col];
-            var num2 = col + 1 < report.Count ? report[col + 1] : 0;
+            var num2 = report[col + 1];
 
             if (num1 > num2)
             {
@@ -90,18 +89,16 @@ public sealed class Day02 : MyBaseDay
 
             if (increasing && decreasing)
             {
-                safe = false;
-                break;
+                return false;
             }
 
             var diff = Math.Abs(num1 - num2);
             if (diff is < 1 or > 3)
             {
-                safe = false;
-                break;
+                return false;
             }
         }
 
-        return safe;
+        return true;
     }
 }
