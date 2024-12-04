@@ -26,6 +26,7 @@ public class Day02 : MyBaseDay
     {
         var reportsList = ParseInput(Input);
         var numSafe = 0;
+
         foreach (var report in reportsList)
         {
             if (IsReportSafe(report))
@@ -38,6 +39,7 @@ public class Day02 : MyBaseDay
                 {
                     List<int> dampenedReoprt = [.. report];
                     dampenedReoprt.RemoveAt(col);
+
                     if (!IsReportSafe(dampenedReoprt))
                     {
                         continue;
@@ -92,19 +94,12 @@ public class Day02 : MyBaseDay
                 break;
             }
 
-            if (Math.Abs(num1 - num2) < 1)
+            var diff = Math.Abs(num1 - num2);
+            if (diff is < 1 or > 3)
             {
                 safe = false;
                 break;
             }
-
-            if (Math.Abs(num1 - num2) <= 3)
-            {
-                continue;
-            }
-
-            safe = false;
-            break;
         }
 
         return safe;
