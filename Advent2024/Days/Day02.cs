@@ -3,33 +3,9 @@
 // https://adventofcode.com/2024/day/2
 public class Day02 : BaseDay
 {
-    private const bool TestMode = false;
-
     private readonly string input;
 
-    private const string TestInput = """
-                                     7 6 4 2 1
-                                     1 2 7 8 9
-                                     9 7 6 2 1
-                                     1 3 2 4 5
-                                     8 6 4 4 1
-                                     1 3 6 7 9
-                                     """;
-
-    public Day02() => input = TestMode ? TestInput : File.ReadAllText(InputFilePath);
-
-    private static List<List<int>> ParseInput(string input)
-    {
-        List<List<int>> reportsList = [];
-        foreach (var line in input.Split('\n', StringSplitOptions.RemoveEmptyEntries))
-        {
-            List<int> report = [];
-            report.AddRange(line.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse));
-            reportsList.Add(report);
-        }
-
-        return reportsList;
-    }
+    public Day02() => input = File.ReadAllText(InputFilePath);
 
     public override ValueTask<string> Solve_1()
     {
@@ -67,6 +43,19 @@ public class Day02 : BaseDay
         }
 
         return new(numSafe.ToString());
+    }
+
+    private static List<List<int>> ParseInput(string input)
+    {
+        List<List<int>> reportsList = [];
+        foreach (var line in input.Split('\n', StringSplitOptions.RemoveEmptyEntries))
+        {
+            List<int> report = [];
+            report.AddRange(line.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse));
+            reportsList.Add(report);
+        }
+
+        return reportsList;
     }
 
     private static bool IsReportSafe(List<int> report)

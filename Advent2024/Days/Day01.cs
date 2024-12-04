@@ -3,20 +3,9 @@
 // https://adventofcode.com/2024/day/1
 public class Day01 : BaseDay
 {
-    private const bool TestMode = false;
-
     private readonly string input;
 
-    private const string TestInput = """
-                                     3   4
-                                     4   3
-                                     2   5
-                                     1   3
-                                     3   9
-                                     3   3
-                                     """;
-
-    public Day01() => input = TestMode ? TestInput : File.ReadAllText(InputFilePath);
+    public Day01() => input = File.ReadAllText(InputFilePath);
 
     private static (List<int> leftNumbers, List<int> rightNumbers) ParseInput(string input)
     {
