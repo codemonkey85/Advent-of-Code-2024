@@ -1,21 +1,19 @@
 ﻿namespace Advent2024.Days;
 
 // https://adventofcode.com/2024/day/3
-public partial class Day03 : BaseDay
+public partial class Day03 : MyBaseDay
 {
     private const bool TestMode = true;
-
-    private readonly string input;
 
     private const string Part1TestInput = "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))";
 
     private const string Part2TestInput = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))";
 
-    public Day03() => input = File.ReadAllText(InputFilePath);
+    public Day03() => Input = File.ReadAllText(InputFilePath);
 
     public override ValueTask<string> Solve_1()
     {
-        var localInput = TestMode ? Part1TestInput : input;
+        var localInput = TestMode ? Part1TestInput : Input;
 
         var sum = Part1MultiplyInstructionsRegex()
             .Matches(localInput)
@@ -28,7 +26,7 @@ public partial class Day03 : BaseDay
 
     public override ValueTask<string> Solve_2()
     {
-        var localInput = TestMode ? Part2TestInput : input;
+        var localInput = TestMode ? Part2TestInput : Input;
 
         return new(string.Empty);
     }

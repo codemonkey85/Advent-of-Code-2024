@@ -1,11 +1,9 @@
 ﻿namespace Advent2024.Days;
 
 // https://adventofcode.com/2024/day/1
-public class Day01 : BaseDay
+public class Day01 : MyBaseDay
 {
-    private readonly string input;
-
-    public Day01() => input = File.ReadAllText(InputFilePath);
+    public Day01() => Input = File.ReadAllText(InputFilePath);
 
     private static (List<int> leftNumbers, List<int> rightNumbers) ParseInput(string input)
     {
@@ -24,7 +22,7 @@ public class Day01 : BaseDay
 
     public override ValueTask<string> Solve_1()
     {
-        var (leftNumbers, rightNumbers) = ParseInput(input);
+        var (leftNumbers, rightNumbers) = ParseInput(Input);
 
         var distanceTotal = 0;
 
@@ -45,7 +43,7 @@ public class Day01 : BaseDay
 
     public override ValueTask<string> Solve_2()
     {
-        var (leftNumbers, rightNumbers) = ParseInput(input);
+        var (leftNumbers, rightNumbers) = ParseInput(Input);
         var similarityScore = (
             from leftNumber in leftNumbers
             let count = rightNumbers.Count(rightNumber => rightNumber == leftNumber)

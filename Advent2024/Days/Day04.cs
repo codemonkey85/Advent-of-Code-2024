@@ -1,11 +1,9 @@
 ﻿namespace Advent2024.Days;
 
 // https://adventofcode.com/2024/day/4
-public class Day04 : BaseDay
+public class Day04 : MyBaseDay
 {
-    private readonly string input;
-
-    public Day04() => input = File.ReadAllText(InputFilePath);
+    public Day04() => Input = File.ReadAllText(InputFilePath);
 
     public override ValueTask<string> Solve_1()
     {

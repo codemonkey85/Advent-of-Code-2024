@@ -1,15 +1,13 @@
 ﻿namespace Advent2024.Days;
 
 // https://adventofcode.com/2024/day/2
-public class Day02 : BaseDay
+public class Day02 : MyBaseDay
 {
-    private readonly string input;
-
-    public Day02() => input = File.ReadAllText(InputFilePath);
+    public Day02() => Input = File.ReadAllText(InputFilePath);
 
     public override ValueTask<string> Solve_1()
     {
-        var reportsList = ParseInput(input);
+        var reportsList = ParseInput(Input);
         var numSafe = reportsList.Count(IsReportSafe);
 
         return new(numSafe.ToString());
@@ -17,7 +15,7 @@ public class Day02 : BaseDay
 
     public override ValueTask<string> Solve_2()
     {
-        var reportsList = ParseInput(input);
+        var reportsList = ParseInput(Input);
         var numSafe = 0;
         foreach (var report in reportsList)
         {
