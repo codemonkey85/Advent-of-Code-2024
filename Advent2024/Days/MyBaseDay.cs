@@ -1,6 +1,6 @@
 ﻿namespace Advent2024.Days;
 
-public class MyBaseDay : BaseDay
+public abstract class MyBaseDay : BaseDay
 {
     public string Input { get; set; } = string.Empty;
 
