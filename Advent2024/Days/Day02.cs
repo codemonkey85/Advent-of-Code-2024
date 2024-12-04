@@ -16,7 +16,7 @@ public sealed class Day02 : MyBaseDay
 
     public override ValueTask<string> Solve_1()
     {
-        var reportsList = ParseInput(Input);
+        var reportsList = ParseInput();
         var numSafe = reportsList.Count(IsReportSafe);
 
         return new(numSafe.ToString());
@@ -24,7 +24,7 @@ public sealed class Day02 : MyBaseDay
 
     public override ValueTask<string> Solve_2()
     {
-        var reportsList = ParseInput(Input);
+        var reportsList = ParseInput();
         var numSafe = 0;
 
         foreach (var report in reportsList)
@@ -54,8 +54,8 @@ public sealed class Day02 : MyBaseDay
         return new(numSafe.ToString());
     }
 
-    private static List<List<int>> ParseInput(string input) =>
-        input.Split('\n', StringSplitOptions.RemoveEmptyEntries)
+    private List<List<int>> ParseInput() =>
+        Input.Split('\n', StringSplitOptions.RemoveEmptyEntries)
         .Select(line => line.Split(' ', StringSplitOptions.RemoveEmptyEntries)
                         .Select(int.Parse)
                         .ToList())

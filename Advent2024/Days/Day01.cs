@@ -16,7 +16,7 @@ public sealed class Day01 : MyBaseDay
 
     public override ValueTask<string> Solve_1()
     {
-        var (leftNumbers, rightNumbers) = ParseInput(Input);
+        var (leftNumbers, rightNumbers) = ParseInput();
 
         var distanceTotal = leftNumbers
             .Select((left, index) => Math.Abs(left - rightNumbers[index]))
@@ -27,7 +27,7 @@ public sealed class Day01 : MyBaseDay
 
     public override ValueTask<string> Solve_2()
     {
-        var (leftNumbers, rightNumbers) = ParseInput(Input);
+        var (leftNumbers, rightNumbers) = ParseInput();
 
         var similarityScore = leftNumbers
             .Select(leftNumber => rightNumbers.Count(rightNumber => rightNumber == leftNumber) * leftNumber)
@@ -36,12 +36,12 @@ public sealed class Day01 : MyBaseDay
         return new(similarityScore.ToString());
     }
 
-    private static (List<int> leftNumbers, List<int> rightNumbers) ParseInput(string input)
+    private (List<int> leftNumbers, List<int> rightNumbers) ParseInput()
     {
         List<int> leftNumbers = [];
         List<int> rightNumbers = [];
 
-        foreach (var line in input.Split('\n', StringSplitOptions.RemoveEmptyEntries))
+        foreach (var line in Input.Split('\n', StringSplitOptions.RemoveEmptyEntries))
         {
             var numbers = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             leftNumbers.Add(int.Parse(numbers[0]));
