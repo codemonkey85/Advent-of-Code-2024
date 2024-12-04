@@ -23,12 +23,7 @@ public sealed partial class Day03 : BaseDay
             .Select(int.Parse) ?? [])
             .ToList();
 
-        var sum = 0;
-
-        foreach (var n in nums)
-        {
-            sum += n.Aggregate((a, b) => a * b);
-        }
+        var sum = nums.Sum(n => n.Aggregate((a, b) => a * b));
 
         return new(sum.ToString());
     }
