@@ -1,6 +1,4 @@
-﻿using Advent2024.Days;
-
-namespace Advent2024.Tests;
+﻿namespace Advent2024.Tests;
 
 public static class Tests
 {

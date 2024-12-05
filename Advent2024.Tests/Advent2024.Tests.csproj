@@ -25,6 +25,7 @@
 
 	<ItemGroup>
 		<Using Include="NUnit.Framework" />
+		<Using Include="Advent2024.Days" />
 	</ItemGroup>
 
 </Project>
