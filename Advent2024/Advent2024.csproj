@@ -15,4 +15,9 @@
 		<None Include="Inputs\**" CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<Using Include="System.Text.RegularExpressions" />
+		<Using Include="AoCHelper" />
+	</ItemGroup>
+
 </Project>
