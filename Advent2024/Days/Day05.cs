@@ -34,11 +34,13 @@ public sealed class Day05 : MyBaseDay
         97,13,75,29,47
         """;
 
+    private List<Rule> rules = [];
+
     public Day05() => Input = File.ReadAllText(InputFilePath);
 
     public override ValueTask<string> Solve_1()
     {
-        var (rules, pagesLists) = ParseInput();
+        var pagesLists = ParseInput();
 
         var validPagesLists = (
             from pagesList in pagesLists
@@ -48,29 +50,41 @@ public sealed class Day05 : MyBaseDay
             where isValid
             select pagesList).ToList();
 
-        var sum = (
-            from validPagesList in validPagesLists
-            let length = validPagesList.Count
-            let middle = length / 2
-            select validPagesList[middle]
-            ).Sum();
+        var sum = GetSum(validPagesLists);
 
         return new(sum.ToString());
     }
 
     public override ValueTask<string> Solve_2()
     {
-        return new(string.Empty);
+        var pagesLists = ParseInput();
+
+        var invalidPagesLists = (
+            from pagesList in pagesLists
+            let isValid = rules
+                .Where(rule => pagesList.Contains(rule.First) && pagesList.Contains(rule.Second))
+                .All(rule => pagesList.IndexOf(rule.First) <= pagesList.IndexOf(rule.Second))
+            where !isValid
+            select pagesList).ToList();
+
+        foreach (var pagesList in invalidPagesLists)
+        {
+            pagesList.Sort(PagesComparer);
+        }
+
+        var sum = GetSum(invalidPagesLists);
+
+        return new(sum.ToString());
     }
 
-    private (List<Rule> Rules, List<List<int>> Pages) ParseInput()
+    private List<List<int>> ParseInput()
     {
         var inputParts = Input.Replace("\r", string.Empty).Split("\n\n", StringSplitOptions.RemoveEmptyEntries);
 
         var ruleLines = inputParts.First().Split('\n', StringSplitOptions.RemoveEmptyEntries).ToList();
         var pageLines = inputParts.Last().Split('\n', StringSplitOptions.RemoveEmptyEntries).ToList();
 
-        var rules = (
+        rules = (
             from line in ruleLines
             select line.Split('|', StringSplitOptions.RemoveEmptyEntries) into parts
             let first = int.Parse(parts.First())
@@ -83,8 +97,26 @@ public sealed class Day05 : MyBaseDay
             .Select(parts => parts.Select(int.Parse).ToList())
             .ToList();
 
-        return (rules, pagesLists);
+        return pagesLists;
     }
+
+    private static int GetSum(List<List<int>> pagesLists) => (
+        from pagesList in pagesLists
+        let length = pagesList.Count
+        let middle = length / 2
+        select pagesList[middle]
+        ).Sum();
+
+    private Comparer<int> PagesComparer => Comparer<int>.Create((a, b) =>
+    {
+        var result = 0;
+        int[] numList = [a, b];
+        foreach (var rule in rules.Where(rule => numList.Contains(rule.First) && numList.Contains(rule.Second)))
+        {
+            result = a == rule.First ? -1 : 1;
+        }
+        return result;
+    });
 
     private record Rule(int First, int Second);
 }
