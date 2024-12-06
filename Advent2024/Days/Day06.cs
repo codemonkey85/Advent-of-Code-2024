@@ -21,9 +21,12 @@ public sealed class Day06 : MyBaseDay
     public override ValueTask<string> Solve_1()
     {
         var distinctLocations = 1;
-        var (map, x, y, xBounds, yBounds) = ParseInput();
+        var (map, x, y) = ParseInput();
 
-        char current;
+        var xBounds = map.GetLength(1);
+        var yBounds = map.GetLength(0);
+
+        var current = '\0';
         var direction = Up;
 
         try
@@ -33,11 +36,6 @@ public sealed class Day06 : MyBaseDay
                 do
                 {
                     (current, x, y) = GetNext(map, x, y, direction);
-
-                    if (x < 0 || x >= xBounds || y < 0 || y >= yBounds)
-                    {
-                        break;
-                    }
 
                     if (current is '.')
                     {
@@ -66,14 +64,12 @@ public sealed class Day06 : MyBaseDay
         return new(string.Empty);
     }
 
-    private (char[,] Map, int StartX, int StartY, int xBounds, int yBounds) ParseInput()
+    private (char[,] Map, int StartX, int StartY) ParseInput()
     {
         var lines = Input.Replace("\r", string.Empty).Split('\n', StringSplitOptions.RemoveEmptyEntries);
         var map = new char[lines.Length, lines[0].Length];
         var startX = 0;
         var startY = 0;
-        var xBounds = lines[0].Length;
-        var yBounds = lines.Length;
 
         for (var y = 0; y < lines.Length; y++)
         {
@@ -90,7 +86,7 @@ public sealed class Day06 : MyBaseDay
             }
         }
 
-        return (map, startX, startY, xBounds, yBounds);
+        return (map, startX, startY);
     }
 
     private static void SetChar(char newChar, char[,] map, int x, int y) => map[y, x] = newChar;
