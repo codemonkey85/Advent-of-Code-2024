@@ -17,7 +17,7 @@ public static class Tests
     [TestCase(typeof(Day05), "143", "123")]
     public static async Task Day5Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
 
-    [TestCase(typeof(Day06), "", "")]
+    [TestCase(typeof(Day06), "41", "")]
     public static async Task Day6Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
 
     private static async Task TestInternal(Type type, string sol1, string sol2)

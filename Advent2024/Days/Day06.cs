@@ -20,11 +20,91 @@ public sealed class Day06 : MyBaseDay
 
     public override ValueTask<string> Solve_1()
     {
-        return new(string.Empty);
+        var distinctLocations = 1;
+        var (map, x, y, xBounds, yBounds) = ParseInput();
+
+        char current;
+        var direction = Up;
+
+        try
+        {
+            while (x >= 0 && x < xBounds - 1 && y >= 0 && y < yBounds - 1)
+            {
+                do
+                {
+                    (current, x, y) = GetNext(map, x, y, direction);
+
+                    if (x < 0 || x >= xBounds || y < 0 || y >= yBounds)
+                    {
+                        break;
+                    }
+
+                    if (current is '.')
+                    {
+                        distinctLocations++;
+                        SetChar('X', map, x, y);
+                    }
+                } while (current != '#');
+
+                // back up one step
+                x -= direction.X;
+                y -= direction.Y;
+
+                // turn right
+                direction = TurnRight(direction);
+            }
+        }
+        catch (IndexOutOfRangeException)
+        {
+        }
+
+        return new(distinctLocations.ToString());
     }
 
     public override ValueTask<string> Solve_2()
     {
         return new(string.Empty);
     }
+
+    private (char[,] Map, int StartX, int StartY, int xBounds, int yBounds) ParseInput()
+    {
+        var lines = Input.Replace("\r", string.Empty).Split('\n', StringSplitOptions.RemoveEmptyEntries);
+        var map = new char[lines.Length, lines[0].Length];
+        var startX = 0;
+        var startY = 0;
+        var xBounds = lines[0].Length;
+        var yBounds = lines.Length;
+
+        for (var y = 0; y < lines.Length; y++)
+        {
+            for (var x = 0; x < lines[y].Length; x++)
+            {
+                var c = lines[y][x];
+                if (c is '^')
+                {
+                    startX = x;
+                    startY = y;
+                    c = 'X';
+                }
+                map[y, x] = c;
+            }
+        }
+
+        return (map, startX, startY, xBounds, yBounds);
+    }
+
+    private static void SetChar(char newChar, char[,] map, int x, int y) => map[y, x] = newChar;
+
+    private static Direction Up => new(0, -1);
+
+    private static (char c, int newX, int newY) GetNext(char[,] map, int x, int y, Direction direction)
+    {
+        var newX = x + direction.X;
+        var newY = y + direction.Y;
+        return (map[newY, newX], newX, newY);
+    }
+
+    private static Direction TurnRight(Direction startDirection) => startDirection with { X = -startDirection.Y, Y = startDirection.X };
+
+    private record Direction(int X, int Y);
 }
