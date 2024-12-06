@@ -22,31 +22,16 @@ public static class Tests
 
     private static async Task TestInternal(Type type, string sol1, string sol2)
     {
-        if (Activator.CreateInstance(type) is MyBaseDay instance)
-        {
-            OverrideMyBaseDayInput(instance, DayParts.Part1);
-            await Assert.ThatAsync(async () => await instance.Solve_1(), Is.EqualTo(sol1));
-
-            OverrideMyBaseDayInput(instance, DayParts.Part2);
-            await Assert.ThatAsync(async () => await instance.Solve_2(), Is.EqualTo(sol2));
-        }
-        else
+        if (Activator.CreateInstance(type) is not MyBaseDay instance)
         {
             Assert.Fail($"{type} is not a BaseDay");
+            return;
         }
 
-        static void OverrideMyBaseDayInput(MyBaseDay instance, DayParts part) =>
-            instance.Input = part switch
-            {
-                DayParts.Part1 => instance.Part1TestInput,
-                DayParts.Part2 => instance.Part2TestInput ?? instance.Part1TestInput,
-                _ => throw new ArgumentOutOfRangeException(nameof(part))
-            } ?? string.Empty;
-    }
+        instance.Input = instance.Part1TestInput ?? string.Empty;
+        await Assert.ThatAsync(async () => await instance.Solve_1(), Is.EqualTo(sol1));
 
-    private enum DayParts
-    {
-        Part1,
-        Part2
+        instance.Input = (instance.Part2TestInput ?? instance.Part1TestInput) ?? string.Empty;
+        await Assert.ThatAsync(async () => await instance.Solve_2(), Is.EqualTo(sol2));
     }
 }
