@@ -19,11 +19,36 @@ public sealed class Day07 : MyBaseDay
 
     public override ValueTask<string> Solve_1()
     {
-        return new(string.Empty);
+        var lines = ParseInput();
+        var sum = 0;
+
+        foreach (var line in lines) 
+        {
+
+        }
+
+        return new(sum.ToString());
     }
 
     public override ValueTask<string> Solve_2()
     {
         return new(string.Empty);
     }
+
+    public List<Line> ParseInput()
+    {
+        var lines = new List<Line>();
+        var lineStrings = Input.Replace("\r", string.Empty).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+        foreach (var lineString in lineStrings)
+        {
+            var parts = lineString.Split(": ");
+            var testValue = int.Parse(parts[0]);
+            var numbers = parts[1].Split(" ").Select(int.Parse).ToList();
+            lines.Add(new Line(testValue, numbers));
+        }
+
+        return lines;
+    }
+
+    public record Line(int TestValue, List<int> Numbers);
 }
