@@ -2,12 +2,13 @@ name: Tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
 
 jobs:
   build:
+    name: "Run Tests"
     runs-on: ubuntu-latest
 
     steps:
