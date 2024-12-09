@@ -26,6 +26,9 @@ public static class Tests
     [TestCase(typeof(Day08), "14", "")]
     public static async Task Day8Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
 
+    [TestCase(typeof(Day09), "1928", "")]
+    public static async Task Day9Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
+
     private static async Task TestInternal(Type type, string sol1, string sol2)
     {
         if (Activator.CreateInstance(type) is not MyBaseDay instance)
