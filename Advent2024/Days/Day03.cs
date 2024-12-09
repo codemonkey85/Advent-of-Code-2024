@@ -1,4 +1,6 @@
-﻿namespace Advent2024.Days;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Advent2024.Days;
 
 // https://adventofcode.com/2024/day/3
 public sealed partial class Day03 : MyBaseDay
@@ -53,9 +55,18 @@ public sealed partial class Day03 : MyBaseDay
         return new(sum.ToString());
     }
 
-    [GeneratedRegex(@"(?<mul>mul\((?<num1>[0-9]{1,3}),(?<num2>[0-9]{1,3})\))")]
+    [StringSyntax(StringSyntaxAttribute.Regex)]
+    private const string MulRegex = @"(?<mul>mul\((?<num1>[0-9]{1,3}),(?<num2>[0-9]{1,3})\))";
+
+    [StringSyntax(StringSyntaxAttribute.Regex)]
+    private const string DoRegex = @"(?<do>do\(\))";
+
+    [StringSyntax(StringSyntaxAttribute.Regex)]
+    private const string DontRegex = @"(?<dont>don't\(\))";
+
+    [GeneratedRegex(MulRegex)]
     private static partial Regex Part1MultiplyInstructionsRegex();
 
-    [GeneratedRegex(@"(?<mul>mul\((?<num1>[0-9]{1,3}),(?<num2>[0-9]{1,3})\))|(?<do>do\(\))|(?<dont>don't\(\))")]
+    [GeneratedRegex($"{MulRegex}|{DoRegex}|{DontRegex}")]
     private static partial Regex Part2MultiplyInstructionsRegex();
 }

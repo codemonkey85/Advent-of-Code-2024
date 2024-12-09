@@ -27,7 +27,7 @@ public sealed class Day07 : MyBaseDay
 
         }
 
-        return new(string.Empty);
+        return new(sum.ToString());
     }
 
     public override ValueTask<string> Solve_2()
