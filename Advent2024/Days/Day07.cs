@@ -35,7 +35,7 @@ public sealed class Day07 : MyBaseDay
         return new(string.Empty);
     }
 
-    public List<Line> ParseInput()
+    private List<Line> ParseInput()
     {
         var lines = new List<Line>();
         var lineStrings = Input.Replace("\r", string.Empty).Split("\n", StringSplitOptions.RemoveEmptyEntries);
@@ -44,7 +44,7 @@ public sealed class Day07 : MyBaseDay
             var parts = lineString.Split(": ");
             var testValue = int.Parse(parts[0]);
             var numbers = parts[1].Split(" ").Select(int.Parse).ToList();
-            lines.Add(new Line(testValue, numbers));
+            lines.Add(new(testValue, numbers));
         }
 
         return lines;

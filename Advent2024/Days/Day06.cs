@@ -26,22 +26,24 @@ public sealed class Day06 : MyBaseDay
         var xBounds = map.GetLength(1);
         var yBounds = map.GetLength(0);
 
-        var current = '\0';
         var direction = Up;
 
         try
         {
             while (x >= 0 && x < xBounds - 1 && y >= 0 && y < yBounds - 1)
             {
+                char current;
                 do
                 {
                     (current, x, y) = GetNext(map, x, y, direction);
 
-                    if (current is '.')
+                    if (current is not '.')
                     {
-                        distinctLocations++;
-                        SetChar('X', map, x, y);
+                        continue;
                     }
+
+                    distinctLocations++;
+                    SetChar('X', map, x, y);
                 } while (current != '#');
 
                 // back up one step
@@ -100,7 +102,7 @@ public sealed class Day06 : MyBaseDay
         return (map[newY, newX], newX, newY);
     }
 
-    private static Direction TurnRight(Direction startDirection) => startDirection with { X = -startDirection.Y, Y = startDirection.X };
+    private static Direction TurnRight(Direction startDirection) => new(X: -startDirection.Y, Y: startDirection.X);
 
     private record Direction(int X, int Y);
 }
