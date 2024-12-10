@@ -4,13 +4,13 @@
 public sealed class Day01 : MyBaseDay
 {
     public override string? Part1TestInput { get; set; } = """
-        3   4
-        4   3
-        2   5
-        1   3
-        3   9
-        3   3
-        """;
+                                                           3   4
+                                                           4   3
+                                                           2   5
+                                                           1   3
+                                                           3   9
+                                                           3   3
+                                                           """;
 
     public Day01() => Input = File.ReadAllText(InputFilePath);
 

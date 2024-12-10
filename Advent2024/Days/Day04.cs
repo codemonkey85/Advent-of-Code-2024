@@ -5,17 +5,17 @@
 public sealed class Day04 : MyBaseDay
 {
     public override string? Part1TestInput { get; set; } = """
-        MMMSXXMASM
-        MSAMXMSMSA
-        AMXSXMAAMM
-        MSAMASMSMX
-        XMASAMXAMM
-        XXAMMXXAMA
-        SMSMSASXSS
-        SAXAMASAAA
-        MAMMMXMMMM
-        MXMXAXMASX
-        """;
+                                                           MMMSXXMASM
+                                                           MSAMXMSMSA
+                                                           AMXSXMAAMM
+                                                           MSAMASMSMX
+                                                           XMASAMXAMM
+                                                           XXAMMXXAMA
+                                                           SMSMSASXSS
+                                                           SAXAMASAAA
+                                                           MAMMMXMMMM
+                                                           MXMXAXMASX
+                                                           """;
 
     public Day04() => Input = File.ReadAllText(InputFilePath);
 
@@ -30,8 +30,7 @@ public sealed class Day04 : MyBaseDay
         // Direction vectors: Right, Down, Left, Up, Diagonals
         var directions = new (int dx, int dy)[]
         {
-            (0, 1),  (1, 0), (0, -1), (-1, 0),
-            (1, 1),  (1, -1), (-1, 1), (-1, -1)
+            (0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)
         };
 
         var count = 0;
@@ -54,7 +53,8 @@ public sealed class Day04 : MyBaseDay
 
         return new(count.ToString());
 
-        static bool CanFormWord(List<string> grid, int startX, int startY, int dx, int dy, string word, int rows, int cols)
+        static bool CanFormWord(List<string> grid, int startX, int startY, int dx, int dy, string word, int rows,
+            int cols)
         {
             for (var i = 0; i < word.Length; i++)
             {
@@ -116,7 +116,8 @@ public sealed class Day04 : MyBaseDay
 
             // Check the top-left and bottom-right arms
             var topLeft = $"{grid[centerX - 1][centerY - 1]}{grid[centerX][centerY]}{grid[centerX + 1][centerY + 1]}";
-            var bottomRight = $"{grid[centerX + 1][centerY - 1]}{grid[centerX][centerY]}{grid[centerX - 1][centerY + 1]}";
+            var bottomRight =
+                $"{grid[centerX + 1][centerY - 1]}{grid[centerX][centerY]}{grid[centerX - 1][centerY + 1]}";
 
             return topLeft is mas or sam &&
                    bottomRight is mas or sam;
@@ -124,6 +125,6 @@ public sealed class Day04 : MyBaseDay
     }
 
     private List<string> ParseInput() => Input.Split('\n', StringSplitOptions.RemoveEmptyEntries)
-                                              .Select(line => line.Replace("\r", string.Empty))
-                                              .ToList();
+        .Select(line => line.Replace("\r", string.Empty))
+        .ToList();
 }

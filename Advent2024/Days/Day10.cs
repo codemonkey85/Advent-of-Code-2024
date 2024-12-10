@@ -4,7 +4,10 @@
 public sealed class Day10 : MyBaseDay
 {
     public override string? Part1TestInput { get; set; } = """
-                                                           
+                                                           0123
+                                                           1234
+                                                           8765
+                                                           9876
                                                            """;
 
     public Day10() => Input = File.ReadAllText(InputFilePath);

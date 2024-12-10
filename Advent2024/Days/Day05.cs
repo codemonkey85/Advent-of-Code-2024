@@ -4,35 +4,35 @@
 public sealed class Day05 : MyBaseDay
 {
     public override string? Part1TestInput { get; set; } = """
-        47|53
-        97|13
-        97|61
-        97|47
-        75|29
-        61|13
-        75|53
-        29|13
-        97|29
-        53|29
-        61|53
-        97|53
-        61|29
-        47|13
-        75|47
-        97|75
-        47|61
-        75|61
-        47|29
-        75|13
-        53|13
-        
-        75,47,61,53,29
-        97,61,53,29,13
-        75,29,13
-        75,97,47,61,53
-        61,13,29
-        97,13,75,29,47
-        """;
+                                                           47|53
+                                                           97|13
+                                                           97|61
+                                                           97|47
+                                                           75|29
+                                                           61|13
+                                                           75|53
+                                                           29|13
+                                                           97|29
+                                                           53|29
+                                                           61|53
+                                                           97|53
+                                                           61|29
+                                                           47|13
+                                                           75|47
+                                                           97|75
+                                                           47|61
+                                                           75|61
+                                                           47|29
+                                                           75|13
+                                                           53|13
+
+                                                           75,47,61,53,29
+                                                           97,61,53,29,13
+                                                           75,29,13
+                                                           75,97,47,61,53
+                                                           61,13,29
+                                                           97,13,75,29,47
+                                                           """;
 
     private List<Rule> rules = [];
 
@@ -86,11 +86,12 @@ public sealed class Day05 : MyBaseDay
 
         rules = (
             from line in ruleLines
-            select line.Split('|', StringSplitOptions.RemoveEmptyEntries) into parts
+            select line.Split('|', StringSplitOptions.RemoveEmptyEntries)
+            into parts
             let first = int.Parse(parts.First())
             let second = int.Parse(parts.Last())
             select new Rule(first, second)
-            ).ToList();
+        ).ToList();
 
         var pagesLists = pageLines
             .Select(line => line.Split(',', StringSplitOptions.RemoveEmptyEntries))
@@ -105,7 +106,7 @@ public sealed class Day05 : MyBaseDay
         let length = pagesList.Count
         let middle = length / 2
         select pagesList[middle]
-        ).Sum();
+    ).Sum();
 
     private Comparer<int> PagesComparer => Comparer<int>.Create((a, b) =>
     {
@@ -115,6 +116,7 @@ public sealed class Day05 : MyBaseDay
         {
             result = a == rule.First ? -1 : 1;
         }
+
         return result;
     });
 
