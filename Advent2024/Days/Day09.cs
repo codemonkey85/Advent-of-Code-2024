@@ -1,6 +1,6 @@
 ﻿namespace Advent2024.Days;
 
-// https://adventofcode.com/2024/day/8
+// https://adventofcode.com/2024/day/9
 public sealed class Day09 : MyBaseDay
 {
     public override string? Part1TestInput { get; set; } = "2333133121414131402";
