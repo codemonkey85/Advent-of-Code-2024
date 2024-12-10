@@ -36,18 +36,15 @@ public sealed class Day07 : MyBaseDay
 
     private List<Line> ParseInput()
     {
-        var lines = new List<Line>();
         var lineStrings = Input.Replace("\r", string.Empty).Split("\n", StringSplitOptions.RemoveEmptyEntries);
-        foreach (var lineString in lineStrings)
-        {
-            var parts = lineString.Split(": ");
-            var testValue = int.Parse(parts[0]);
-            var numbers = parts[1].Split(" ").Select(int.Parse).ToList();
-            lines.Add(new(testValue, numbers));
-        }
-
-        return lines;
+        return (
+            from lineString in lineStrings
+            select lineString.Split(": ")
+            into parts
+            let testValue = int.Parse(parts[0])
+            let numbers = parts[1].Split(" ").Select(int.Parse).ToList()
+            select new Line(testValue, numbers)).ToList();
     }
 
-    public record Line(int TestValue, List<int> Numbers);
+    private record Line(int TestValue, List<int> Numbers);
 }
