@@ -20,11 +20,32 @@ public static class Tests
     [TestCase(typeof(Day06), "41", "")]
     public static async Task Day6Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
 
-    [TestCase(typeof(Day07), "0", "")]
+    [TestCase(typeof(Day07), "3749", "")]
     public static async Task Day7Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
 
-    [TestCase(typeof(Day08), "", "")]
+    [TestCase(typeof(Day08), "14", "")]
     public static async Task Day8Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
+
+    [TestCase(typeof(Day09), "1928", "")]
+    public static async Task Day9Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
+
+    [TestCase(typeof(Day10), "", "")]
+    public static async Task Day10Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
+
+    [TestCase(typeof(Day11), "", "")]
+    public static async Task Day11Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
+
+    [TestCase(typeof(Day12), "", "")]
+    public static async Task Day12Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
+
+    [TestCase(typeof(Day13), "", "")]
+    public static async Task Day13Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
+
+    [TestCase(typeof(Day14), "", "")]
+    public static async Task Day14Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
+
+    [TestCase(typeof(Day15), "", "")]
+    public static async Task Day15Test(Type type, string sol1, string sol2) => await TestInternal(type, sol1, sol2);
 
     private static async Task TestInternal(Type type, string sol1, string sol2)
     {

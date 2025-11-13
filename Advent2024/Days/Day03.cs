@@ -8,9 +8,11 @@ public sealed partial class Day03 : MyBaseDay
     private const string Num1 = "num1";
     private const string Num2 = "num2";
 
-    public override string? Part1TestInput { get; set; } = "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))";
+    public override string? Part1TestInput { get; set; } =
+        "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))";
 
-    public override string? Part2TestInput { get; set; } = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))";
+    public override string? Part2TestInput { get; set; } =
+        "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))";
 
     public Day03() => Input = File.ReadAllText(InputFilePath);
 

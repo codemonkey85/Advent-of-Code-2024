@@ -4,13 +4,13 @@
 public sealed class Day02 : MyBaseDay
 {
     public override string? Part1TestInput { get; set; } = """
-        7 6 4 2 1
-        1 2 7 8 9
-        9 7 6 2 1
-        1 3 2 4 5
-        8 6 4 4 1
-        1 3 6 7 9
-        """;
+                                                           7 6 4 2 1
+                                                           1 2 7 8 9
+                                                           9 7 6 2 1
+                                                           1 3 2 4 5
+                                                           8 6 4 4 1
+                                                           1 3 6 7 9
+                                                           """;
 
     public Day02() => Input = File.ReadAllText(InputFilePath);
 
@@ -56,10 +56,10 @@ public sealed class Day02 : MyBaseDay
 
     private List<List<int>> ParseInput() =>
         Input.Split('\n', StringSplitOptions.RemoveEmptyEntries)
-        .Select(line => line.Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                        .Select(int.Parse)
-                        .ToList())
-        .ToList();
+            .Select(line => line.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToList())
+            .ToList();
 
     private static bool IsReportSafe(List<int> report)
     {

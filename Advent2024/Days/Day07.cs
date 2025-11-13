@@ -4,16 +4,16 @@
 public sealed class Day07 : MyBaseDay
 {
     public override string? Part1TestInput { get; set; } = """
-        190: 10 19
-        3267: 81 40 27
-        83: 17 5
-        156: 15 6
-        7290: 6 8 6 15
-        161011: 16 10 13
-        192: 17 8 14
-        21037: 9 7 18 13
-        292: 11 6 16 20
-        """;
+                                                           190: 10 19
+                                                           3267: 81 40 27
+                                                           83: 17 5
+                                                           156: 15 6
+                                                           7290: 6 8 6 15
+                                                           161011: 16 10 13
+                                                           192: 17 8 14
+                                                           21037: 9 7 18 13
+                                                           292: 11 6 16 20
+                                                           """;
 
     public Day07() => Input = File.ReadAllText(InputFilePath);
 
@@ -22,9 +22,8 @@ public sealed class Day07 : MyBaseDay
         var lines = ParseInput();
         var sum = 0;
 
-        foreach (var line in lines) 
+        foreach (var line in lines)
         {
-
         }
 
         return new(sum.ToString());
@@ -35,20 +34,17 @@ public sealed class Day07 : MyBaseDay
         return new(string.Empty);
     }
 
-    public List<Line> ParseInput()
+    private List<Line> ParseInput()
     {
-        var lines = new List<Line>();
         var lineStrings = Input.Replace("\r", string.Empty).Split("\n", StringSplitOptions.RemoveEmptyEntries);
-        foreach (var lineString in lineStrings)
-        {
-            var parts = lineString.Split(": ");
-            var testValue = int.Parse(parts[0]);
-            var numbers = parts[1].Split(" ").Select(int.Parse).ToList();
-            lines.Add(new Line(testValue, numbers));
-        }
-
-        return lines;
+        return (
+            from lineString in lineStrings
+            select lineString.Split(": ")
+            into parts
+            let testValue = int.Parse(parts[0])
+            let numbers = parts[1].Split(" ").Select(int.Parse).ToList()
+            select new Line(testValue, numbers)).ToList();
     }
 
-    public record Line(int TestValue, List<int> Numbers);
+    private record Line(int TestValue, List<int> Numbers);
 }
